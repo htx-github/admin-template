@@ -1,5 +1,5 @@
 const getters = {
-  app: state => state.app.fullName
+  app: state => state.app
   // messages: state => state.message.messages,
   // messageTotal: state => state.message.messageTotal,
   // currentUser: state => state.user,

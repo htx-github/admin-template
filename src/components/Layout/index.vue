@@ -1,9 +1,24 @@
 <template>
-  <div :class="classObj" class="app-wrapper"></div>
+  <div :class="classObj" class="app-wrapper">
+    <div
+      v-if="device === 'mobile' && sidebar.opened"
+      class="drawer-bg"
+      @click="handleClickOutside"
+    />
+    <sidebar class="sidebar-container"/>
+  </div>
 </template>
 <script>
 import { mapGetters } from "vuex";
+import { Navbar, Sidebar, AppMain, TagsView } from './components'
 export default {
+  name: 'Layout',
+  components: {
+    // Navbar,
+    Sidebar,
+    // AppMain,
+    // TagsView
+  },
   data() {
     const item = {
       date: "2016-05-02",
@@ -16,16 +31,11 @@ export default {
   },
   computed: {
     ...mapGetters(["app"]),
-    sidebar() {
-      return this.app.sidebar;
-    },
-    device() {
-      return this.app.device;
-    },
     // fixedHeader() {
     //   return this.$store.state.settings.fixedHeader;
     // },
     classObj() {
+      console.log(this.app);
       return {
         hideSidebar: !this.app.sidebar.opened,
         openSidebar: this.app.sidebar.opened,
@@ -36,5 +46,24 @@ export default {
   }
 };
 </script>
-<style>
+<style lang="less" socped>
+.app-wrapper {
+  .clearfix();
+  position: relative;
+  height: 100%;
+  width: 100%;
+  &.mobile.openSidebar {
+    position: fixed;
+    top: 0;
+  }
+}
+.drawer-bg {
+  background: #000;
+  opacity: 0.3;
+  width: 100%;
+  top: 0;
+  height: 100%;
+  position: absolute;
+  z-index: 999;
+}
 </style>

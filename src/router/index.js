@@ -10,17 +10,12 @@ const constantRoutes = [
     hidden: true
   },
   {
-    path: "/",
+    path: "/home",
     component: () => import("@/components/Layout")
   },
   {
     path: "/404",
     component: () => import("@/views/404"),
-    hidden: true
-  },
-  {
-    path: "/",
-    redirect: "/login",
     hidden: true
   },
 

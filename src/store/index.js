@@ -4,8 +4,6 @@ import getters from "./getters";
 import modules from "./modules";
 
 Vue.use(Vuex);
-console.log(modules);
-console.log(getters);
 const store = new Vuex.Store({
   modules,
   getters

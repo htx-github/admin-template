@@ -7,6 +7,7 @@ import "nprogress/nprogress.css";
 
 const whiteNames = [
   "/login",
+  "/home",
   "/localUpload",
   "/liveroom",
   "/flvMultiLive",
@@ -51,7 +52,7 @@ router.beforeEach((to, from, next) => {
     } else {
       let random = new Date().getTime();
       next(`/login?redirect=${random}`); // 没有token
-      location.reload();
+      // location.reload();
     }
   }
 });
