@@ -10,8 +10,8 @@ const constantRoutes = [
     hidden: true
   },
   {
-    path: "/home",
-    component: () => import("@/views/container")
+    path: "/",
+    component: () => import("@/components/Layout")
   },
   {
     path: "/404",

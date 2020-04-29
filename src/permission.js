@@ -49,9 +49,9 @@ router.beforeEach((to, from, next) => {
         next();
       }
     } else {
-      next();
-      // let random = new Date().getTime();
-      // next(`/login?redirect=${random}`); // 没有token
+      let random = new Date().getTime();
+      next(`/login?redirect=${random}`); // 没有token
+      location.reload();
     }
   }
 });
