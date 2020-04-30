@@ -67,7 +67,7 @@
 
 <script>
 import { validUsername } from "@/utils/validate";
-
+import { setToken } from '@/utils/token';
 export default {
   name: "Login",
   data() {
@@ -135,7 +135,8 @@ export default {
           //   .catch(() => {
           //     this.loading = false;
           //   });
-          this.$router.push({ path: "/home" });
+          setToken("admin")
+          this.$router.push({ path: "/" });
         } else {
           console.log("error submit!!");
           return false;

@@ -6,6 +6,7 @@ const app = {
     shortName: myConfig.appShortName,
     loading: false,
     backtrackPath: "",
+    sidebarLogo:false,
     sidebar: {
       opened: Cookies.get("sidebarStatus")
         ? !!+Cookies.get("sidebarStatus")

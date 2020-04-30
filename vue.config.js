@@ -58,20 +58,20 @@ module.exports = {
     }
   },
   pluginOptions: {
-    svgSprite: {
-      dir: "src/icons/svg/",
-      test: /\.(svg)(\?.*)?$/,
-      loaderOptions: {
-        extract: true,
-        spriteFilename: "icons.[hash:8].svg" // or 'img/icons.svg' if filenameHashing == false
-      },
-      pluginOptions: {
-        plainSprite: true
-      }
-    },
+    // svgSprite: {
+    //   dir: "src/icons/svg/",
+    //   test: /\.(svg)(\?.*)?$/,
+    //   loaderOptions: {
+    //     extract: true,
+    //     spriteFilename: "icons.[hash:8].svg" // or 'img/icons.svg' if filenameHashing == false
+    //   },
+    //   pluginOptions: {
+    //     plainSprite: true
+    //   }
+    // },
     "style-resources-loader": {
       preProcessor: "less",
-      patterns: [resolve("src/styles/variables.less")] // 引入全局样式变量
+      patterns: [resolve("src/styles/variables.less"),resolve("src/styles/mixin.less")] // 引入全局样式变量
     }
   },
   css: {

@@ -17,27 +17,31 @@ const whiteNames = [
 
 // 拦截路由，进行授权判断
 router.beforeEach((to, from, next) => {
-  console.log(1111);
   NProgress.start();
   document.body.scrollTop = 0;
   if (whiteNames.indexOf(to.path) >= 0) {
-    console.log(3333333333);
+    console.log("是白名单");
     // 白名单路由直接跳过
     next();
   } else {
+    console.log(getToken());
     if (getToken()) {
-      if (store.getters.menus.length === 0 && !store.getters.noPermission) {
+      console.log("有token");
+      if (store.getters.menus.length === 0) {
+        console.log("没有菜单");
         // 动态添加路由
-        // store.dispatch("getUserPermissionResource").then(routes => {
-        //   router.addRoutes(routes);
-        //   next({
-        //     ...to,
-        //     replace: true
-        //   });
-        // });
-        next({ ...to, replace: true });
+        store.dispatch("getUserPermissionResource").then(routes => {
+          console.log(routes)
+          router.addRoutes(routes);
+          console.log(router)
+          next({
+            ...to,
+            replace: true
+          });
+        });
+        // next({ ...to, replace: true });
       } else {
-        console.log(2222);
+        console.log("有菜单");
         // if (
         //   from.fullPath === "/login" &&
         //   to.fullPath !== store.getters.backtrackPath &&
@@ -50,6 +54,7 @@ router.beforeEach((to, from, next) => {
         next();
       }
     } else {
+      console.log("没有token");
       let random = new Date().getTime();
       next(`/login?redirect=${random}`); // 没有token
       // location.reload();

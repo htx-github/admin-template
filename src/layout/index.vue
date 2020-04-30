@@ -5,19 +5,30 @@
       class="drawer-bg"
       @click="handleClickOutside"
     />
-    <sidebar class="sidebar-container"/>
+    <sidebar class="sidebar-container" />
+    <div :class="{ hasTagsView: false }" class="main-container">
+      <div :class="{ 'fixed-header': true }">
+        <navbar />
+        <!-- <tags-view v-if="needTagsView" /> -->
+      </div>
+      <app-main />
+      <!-- <right-panel v-if="showSettings">
+        <settings />
+      </right-panel> -->
+    </div>
+    <!-- <router-view></router-view> -->
+    <!-- <sidebar class="sidebar-container"/> -->
   </div>
 </template>
 <script>
 import { mapGetters } from "vuex";
-import { Navbar, Sidebar, AppMain, TagsView } from './components'
+import { Navbar, Sidebar, AppMain } from "./components";
 export default {
-  name: 'Layout',
+  name: "Layout",
   components: {
-    // Navbar,
+    Navbar,
     Sidebar,
-    // AppMain,
-    // TagsView
+    AppMain
   },
   data() {
     const item = {
@@ -46,7 +57,7 @@ export default {
   }
 };
 </script>
-<style lang="less" socped>
+<style lang="less" scoped>
 .app-wrapper {
   .clearfix();
   position: relative;
