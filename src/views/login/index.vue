@@ -67,7 +67,7 @@
 
 <script>
 import { validUsername } from "@/utils/validate";
-import { setToken } from '@/utils/token';
+import { setToken } from "@/utils/token";
 export default {
   name: "Login",
   data() {
@@ -135,7 +135,18 @@ export default {
           //   .catch(() => {
           //     this.loading = false;
           //   });
-          setToken("admin")
+          setToken("admin");
+          let userInfo = {
+            name: "18814129489",
+            username: "黄廷轩",
+            deviceType: "1",
+            userId: "213",
+            headImg:
+              "https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif",
+            orgName: "省公司",
+            roleName: "超级管理员"
+          };
+          this.$store.dispatch("saveUserInfo", userInfo);
           this.$router.push({ path: "/" });
         } else {
           console.log("error submit!!");

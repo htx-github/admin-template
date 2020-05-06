@@ -27,13 +27,13 @@ router.beforeEach((to, from, next) => {
     console.log(getToken());
     if (getToken()) {
       console.log("有token");
-      if (store.getters.menus.length === 0) {
+      if (store.getters.menus.length === 0 && !store.getters.noPermission) {
         console.log("没有菜单");
         // 动态添加路由
         store.dispatch("getUserPermissionResource").then(routes => {
-          console.log(routes)
+          console.log(routes);
           router.addRoutes(routes);
-          console.log(router)
+          console.log(router);
           next({
             ...to,
             replace: true
@@ -69,6 +69,7 @@ router.afterEach((to, from) => {
   }
 
   if (to.fullPath === "/login") {
+    // store.dispatch("removeUserInfo").then(res => console.log(res));
     // 访问登录页，清除token信息
     removeToken();
 

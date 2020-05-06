@@ -13,7 +13,7 @@
         mode="vertical"
       >
         <sidebar-item
-          v-for="route in menus"
+          v-for="route in menus[0].children"
           :key="route.path"
           :item="route"
           :base-path="route.path"

@@ -2,24 +2,24 @@
   <div class="navbar">
     <hamburger
       id="hamburger-container"
-      :is-active="sidebar.opened"
+      :is-active="app.sidebar.opened"
       class="hamburger-container"
       @toggleClick="toggleSideBar"
     />
 
-    <!-- <breadcrumb id="breadcrumb-container" class="breadcrumb-container" /> -->
+    <breadcrumb id="breadcrumb-container" class="breadcrumb-container" />
 
     <div class="right-menu">
-      <template v-if="device !== 'mobile'">
-        <!-- <search id="header-search" class="right-menu-item" />
+      <template v-if="app.device !== 'mobile'">
+        <!-- <search id="header-search" class="right-menu-item" />-->
 
-        <error-log class="errLog-container right-menu-item hover-effect" />
+        <!-- <error-log class="errLog-container right-menu-item hover-effect" /> -->
 
         <screenfull id="screenfull" class="right-menu-item hover-effect" />
 
-        <el-tooltip content="Global Size" effect="dark" placement="bottom">
+        <!-- <el-tooltip content="Global Size" effect="dark" placement="bottom">
           <size-select id="size-select" class="right-menu-item hover-effect" />
-        </el-tooltip> -->
+        </el-tooltip>  -->
       </template>
 
       <el-dropdown
@@ -27,15 +27,18 @@
         trigger="click"
       >
         <div class="avatar-wrapper">
-          <!-- <img :src="avatar + '?imageView2/1/w/80/h/80'" class="user-avatar" /> -->
-          <i class="el-icon-caret-bottom" />
+          <img
+            :src="currentUser.avatar + '?imageView2/1/w/80/h/80'"
+            class="user-avatar"
+          />
+          <span class="user-name">{{ currentUser.username }}</span>
         </div>
         <el-dropdown-menu slot="dropdown">
-          <router-link to="/profile/index">
-            <el-dropdown-item>Profile</el-dropdown-item>
+          <router-link to="/system/user/info">
+            <el-dropdown-item>个人中心</el-dropdown-item>
           </router-link>
           <router-link to="/">
-            <el-dropdown-item>Dashboard</el-dropdown-item>
+            <el-dropdown-item>首页</el-dropdown-item>
           </router-link>
           <a
             target="_blank"
@@ -50,7 +53,7 @@
             <el-dropdown-item>Docs</el-dropdown-item>
           </a>
           <el-dropdown-item divided @click.native="logout">
-            <span style="display:block;">Log Out</span>
+            <span style="display:block;">退出</span>
           </el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
@@ -60,32 +63,32 @@
 
 <script>
 import { mapGetters } from "vuex";
-// import Breadcrumb from "@/components/Breadcrumb";
+import Breadcrumb from "@/components/Breadcrumb";
 import Hamburger from "@/components/Hamburger";
+import Screenfull from "@/components/Screenfull";
 // import ErrorLog from "@/components/ErrorLog";
-// import Screenfull from "@/components/Screenfull";
 // import SizeSelect from "@/components/SizeSelect";
 // import Search from "@/components/HeaderSearch";
 
 export default {
   components: {
-    // Breadcrumb,
+    Breadcrumb,
     Hamburger,
+    Screenfull
     // ErrorLog,
-    // Screenfull,
     // SizeSelect,
     // Search
   },
   computed: {
-    ...mapGetters(["sidebar", "avatar", "device"])
+    ...mapGetters(["app", "currentUser"])
   },
   methods: {
     toggleSideBar() {
-      this.$store.dispatch("app/toggleSideBar");
+      this.$store.dispatch("toggleSideBar");
     },
     async logout() {
-      await this.$store.dispatch("user/logout");
       this.$router.push(`/login?redirect=${this.$route.fullPath}`);
+      await this.$store.dispatch("removeUserInfo");
     }
   }
 };
@@ -149,19 +152,19 @@ export default {
     }
 
     .avatar-container {
-      margin-right: 30px;
-
       .avatar-wrapper {
-        margin-top: 5px;
         position: relative;
-
+        .center(flex);
         .user-avatar {
           cursor: pointer;
           width: 40px;
           height: 40px;
-          border-radius: 10px;
+          border-radius: 20px;
+          margin-right: 8px;
         }
-
+        .user-name {
+          font-size: 14px;
+        }
         .el-icon-caret-bottom {
           cursor: pointer;
           position: absolute;

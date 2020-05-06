@@ -79,6 +79,9 @@ export default {
   },
   methods: {
     hasOneShowingChild(children = [], parent) {
+      //没有子节点
+      console.log("children");
+      console.log(children);
       const showingChildren = children.filter(item => {
         if (item.hidden) {
           return false;
@@ -88,28 +91,36 @@ export default {
           return true;
         }
       });
-
+      console.log("showingChildren")
+      console.log(showingChildren);
       // When there is only one child router, the child router is displayed by default
-      if (showingChildren.length === 1) {
-        return true;
-      }
+      // if (showingChildren.length === 1) {//当只有一个子节点时，不渲染el-submenu,子一个子节点当菜单用
+      //   return true;
+      // }
 
       // Show parent if there are no child router to display
       if (showingChildren.length === 0) {
         this.onlyOneChild = { ...parent, path: "", noShowingChildren: true };
+        console.log("onlyOneChild")
+        console.log(this.onlyOneChild);
         return true;
       }
 
       return false;
     },
     resolvePath(routePath) {
+      console.log(this.basePath)
+      console.log(routePath)
       if (isExternal(routePath)) {
         return routePath;
       }
       if (isExternal(this.basePath)) {
         return this.basePath;
       }
-      return path.resolve(this.basePath, routePath);
+      console.log(this.basePath+routePath)
+      return this.basePath+routePath
+      // console.log("end"+path.resolve(this.basePath, routePath))
+      // return path.resolve(this.basePath, routePath);
     }
   }
 };

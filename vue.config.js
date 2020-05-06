@@ -134,7 +134,13 @@ module.exports = {
         symbolId: "icon-[name]"
       })
       .end();
-
+      config.module
+      .rule("yml")
+      .test(/\.yml$/)
+      .include.add(resolve("src/icons"))
+      .end()
+      .use("file-loader")
+      .loader("file-loader")
     // set preserveWhitespace
     // config.module
     //   .rule("vue")

@@ -1,12 +1,8 @@
-import myConfig from "@/setting";
 import Cookies from "js-cookie";
 const app = {
   state: {
-    fullName: myConfig.appName,
-    shortName: myConfig.appShortName,
     loading: false,
-    backtrackPath: "",
-    sidebarLogo:false,
+    sidebarLogo: false,
     sidebar: {
       opened: Cookies.get("sidebarStatus")
         ? !!+Cookies.get("sidebarStatus")
@@ -38,9 +34,6 @@ const app = {
     TOGGLE_DEVICE: (state, device) => {
       //设置是PC还是移动
       state.device = device;
-    },
-    backtrack: (state, path) => {
-      state.backtrackPath = path;
     }
   },
   actions: {
@@ -55,9 +48,6 @@ const app = {
     },
     toggleDevice({ commit }, device) {
       commit("TOGGLE_DEVICE", device);
-    },
-    backtrack({ commit }, path) {
-      commit("backtrack", path);
     }
   }
 };
